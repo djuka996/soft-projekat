@@ -60,13 +60,17 @@ def get_balls_on_image(current_image, table_bounds, average_radius):
     # Array that will hold all found balls ( circles )
     balls_by_clustering = []
     # Extract full table mask
-    full_table_mask = mask_utils.get_mask_full_table(current_image, table_bounds.lower_bounds, table_bounds.upper_bounds)
+    full_table_mask = mask_utils.get_mask_full_table(current_image,
+                                                     table_bounds.lower_bounds,
+                                                     table_bounds.upper_bounds)
     # Prepare the image for analysis
     prepared_image = cv2.bitwise_and(current_image, current_image, mask=full_table_mask)
     # Iterate over predefined color ranges
     for current_bounds in gc.bounds[:8]:
         # Extract the mask on prepared image that corresponds to the current color range
-        current_mask = image_utils.get_ball_mask(prepared_image, current_bounds.lower_bounds, current_bounds.upper_bounds)
+        current_mask = image_utils.get_ball_mask(prepared_image,
+                                                 current_bounds.lower_bounds,
+                                                 current_bounds.upper_bounds)
         # Get those parts on the prepared image
         current_balls = cv2.bitwise_and(prepared_image, prepared_image, mask=current_mask)
         # Extract circles from the extracted ball
